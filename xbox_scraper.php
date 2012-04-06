@@ -91,19 +91,15 @@ class xbox
         if($title == "Continue" or $continue == TRUE){
             
             preg_match("/<form name=\"fmHF\" id=\"fmHF\" action=\"(.+?)\" method=\"post\" target=\"_self\">/",$page, $target2);    
-            preg_match("/<input type=\"hidden\" name=\"NAPExp\" id=\"NAPExp\" value=\"(.+?)\">/",$page, $NAPExp);
             preg_match("/<input type=\"hidden\" name=\"NAP\" id=\"NAP\" value=\"(.+?)\">/",$page, $NAP);
             preg_match("/<input type=\"hidden\" name=\"ANON\" id=\"ANON\" value=\"(.+?)\">/",$page, $ANON);
-            preg_match("/<input type=\"hidden\" name=\"ANONExp\" id=\"ANONExp\" value=\"(.+?)\">/",$page, $ANONExp);
             preg_match("/<input type=\"hidden\" name=\"t\" id=\"t\" value=\"(.+?)\">/",$page, $t);
      
             $target2 = $target2[1];
-            $postData1 = "NAPExp=".$NAPExp[1];
-            $postData1 .= "&NAP=".$NAP[1];
+            $postData1 = "NAP=".$NAP[1];
             $postData1 .= "&ANON=".$ANON[1];
-            $postData1 .= "&ANONExp=".$ANONExp[1];
             $postData1 .= "&t=".$t[1];  
-            
+
             $page = $this->load($target2, $postData1);
         }
     }
@@ -140,5 +136,4 @@ class xbox
         return json_decode($data[1], TRUE);
     }
 }
-
 ?>
