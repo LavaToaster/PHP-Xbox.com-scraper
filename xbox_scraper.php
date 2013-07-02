@@ -72,8 +72,7 @@ class xbox
      */
     private function login()
     {
-        $url = 'https://login.live.com/login.srf?wa=wsignin1.0&rpsnv=11&ct='.date('U').'&rver=6.2.6289.0&wp=MBI_SSL&wreply=https:%2F%2Flive.xbox.com:443%2Fxweb%2Flive%2Fpassport%2FsetCookies.ashx%3Frru%3Dhttps%253a%252f%252flive.xbox.com%252fen-US%252fAccount%252fSignin%253freturnUrl%253dhttp%25253a%25252f%25252fwww.xbox.com%25252fen-US%25252f&lc=1033&id=66262&cbcxt=0';
-
+        $url = 'https://login.live.com/login.srf?wa=wsignin1.0&rpsnv=11&ct='.date('U').'&rver=6.2.6289.0&wp=MBI_SSL&wreply=https:%2F%2Flive.xbox.com:443%2Fxweb%2Flive%2Fpassport%2FsetCookies.ashx%3Frru%3Dhttps%253a%252f%252flive.xbox.com%252fen-US%252fAccount%252fSignin%253freturnUrl%253dhttp%25253a%25252f%25252fwww.xbox.com%25252fen-US%25252f%25253flc%25253d1033&lc=1033&id=66262&cbcxt=0';
         $page = $this->load($url);
 
         @preg_match("/urlPost:'(.+?)'/",$page, $target);
