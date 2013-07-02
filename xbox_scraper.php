@@ -30,11 +30,12 @@ SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 
 class xbox
 {
+
     function __construct($email, $password)
     {
         $this->email = $email;
         $this->pass = $password;
-        $this->login();
+        @$this->login();
     }
 
     public function load($url, $postData='')
