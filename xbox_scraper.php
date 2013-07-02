@@ -62,11 +62,11 @@ class xbox
 
     private function login()
     {
-        $url = "https://login.live.com/login.srf?wa=wsignin1.0&rpsnv=11&ct=".date("U")."&rver=6.0.5286.0&wp=MBI&wreply=https:%2F%2Flive.xbox.com:443%2Fxweb%2Flive%2Fpassport%2FsetCookies.ashx%3Frru%3Dhttp%253a%252f%252fwww.xbox.com%252fen-US%252f%253flc%253d2057&lc=1033&cb=reason%3D0%26returnUrl%3Dhttp%253a%252f%252fwww.xbox.com%252fen-US%252f%253flc%253d2057&id=66262";
+        $url = 'https://login.live.com/login.srf?wa=wsignin1.0&rpsnv=11&ct='.date('U').'&rver=6.2.6289.0&wp=MBI_SSL&wreply=https:%2F%2Flive.xbox.com:443%2Fxweb%2Flive%2Fpassport%2FsetCookies.ashx%3Frru%3Dhttps%253a%252f%252flive.xbox.com%252fen-US%252fAccount%252fSignin%253freturnUrl%253dhttp%25253a%25252f%25252fwww.xbox.com%25252fen-US%25252f&lc=1033&id=66262&cbcxt=0';
 
         $page = $this->load($url);
 
-        @preg_match("/srf_uPost='(.+?)'/",$page, $target);
+        @preg_match("/urlPost:'(.+?)'/",$page, $target);
         @preg_match("/<input type=\"hidden\" name=\"PPFT\" id=\"i0327\" value=\"(.+?)\"\/>/",$page, $PPFT);
         @preg_match("/srf_sRBlob='(.+?)'/",$page, $PPSX);
         @preg_match("/<title>(.+?)<\/title>/",$page, $title);
@@ -107,7 +107,7 @@ class xbox
 
     public function getGames($gamerTag)
     {
-        $url = "http://live.xbox.com/en-US/Activity?compareTo=".urlencode($gamerTag);
+        $url = "https://live.xbox.com/en-US/Activity?compareTo=".urlencode($gamerTag);
 
         $token_v = '/<input name="__RequestVerificationToken" type="hidden" value="(.+?)" \/>/';
         $gt_url = '/Game.Id ,"(.+?)"/';
@@ -117,7 +117,7 @@ class xbox
         preg_match($token_v, $get_token, $token);
         preg_match($gt_url, $get_token, $gt_url);
 
-        $target = "http://live.xbox.com/en-GB/Activity/Summary?CompareTo=".urlencode($_GET['gamerTag']);
+        $target = "https://live.xbox.com/en-GB/Activity/Summary?CompareTo=".urlencode($gamerTag);
         $postData = "__RequestVerificationToken=".urlencode($token[1]);
 
         $page = $this->load($target, $postData);
@@ -127,10 +127,12 @@ class xbox
 
     public function getAchievements($gamerTag, $titleId)
     {
-        $url = "http://live.xbox.com/en-US/Activity/Details?compareTo=".urlencode($gamerTag)."&titleId=".$titleId;
+        $url = "https://live.xbox.com/en-US/Activity/Details?compareTo=".urlencode($gamerTag)."&titleId=".$titleId;
         $page = $this->load($url);
 
         $achievements = "/broker\.publish\(routes\.activity\.details\.load, (.+?)\);/";
+
+        $rc = '';
 
         preg_match($achievements, $rc, $data);
 
