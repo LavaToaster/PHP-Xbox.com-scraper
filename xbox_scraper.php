@@ -38,6 +38,13 @@ class xbox
         @$this->login();
     }
 
+    /**
+     * Loads a page from the internet!
+     *
+     * @param string $url Url you want to load
+     * @param string $postData POST Data you want to add onto the request
+     * @return string
+     */
     public function load($url, $postData='')
     {
         $useragent = "User-Agent: Mozilla/5.0 (Windows; U; Windows NT 5.1; en-GB; rv:1.9.2.10) Gecko/20100914 BRI/1 Firefox/3.6.10 ( .NET CLR 3.5.30729)";
@@ -60,6 +67,9 @@ class xbox
         return $page;
     }
 
+    /**
+     * Log into the live service
+     */
     private function login()
     {
         $url = 'https://login.live.com/login.srf?wa=wsignin1.0&rpsnv=11&ct='.date('U').'&rver=6.2.6289.0&wp=MBI_SSL&wreply=https:%2F%2Flive.xbox.com:443%2Fxweb%2Flive%2Fpassport%2FsetCookies.ashx%3Frru%3Dhttps%253a%252f%252flive.xbox.com%252fen-US%252fAccount%252fSignin%253freturnUrl%253dhttp%25253a%25252f%25252fwww.xbox.com%25252fen-US%25252f&lc=1033&id=66262&cbcxt=0';
@@ -105,6 +115,12 @@ class xbox
         }
     }
 
+    /**
+     * Loads the games for a given user
+     *
+     * @param string $gamerTag The GamerTag of the user you would like to load
+     * @return array
+     */
     public function getGames($gamerTag)
     {
         $url = "https://live.xbox.com/en-US/Activity?compareTo=".urlencode($gamerTag);
@@ -125,6 +141,13 @@ class xbox
         return json_decode($page, TRUE);
     }
 
+    /**
+     * Loads the achievements a user has in a game
+     *
+     * @param string $gamerTag GamerTag of the user you would like to load
+     * @param int $titleId TitleID of the game you want to load
+     * @return array
+     */
     public function getAchievements($gamerTag, $titleId)
     {
         $url = "https://live.xbox.com/en-US/Activity/Details?compareTo=".urlencode($gamerTag)."&titleId=".$titleId;
