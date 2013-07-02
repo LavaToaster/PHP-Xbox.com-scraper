@@ -155,9 +155,7 @@ class xbox
 
         $achievements = "/broker\.publish\(routes\.activity\.details\.load, (.+?)\);/";
 
-        $rc = '';
-
-        preg_match($achievements, $rc, $data);
+        preg_match($achievements, $page, $data);
 
         return json_decode($data[1], TRUE);
     }
